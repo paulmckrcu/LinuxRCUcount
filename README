@@ -1,0 +1,143 @@
+Normal usage: Edit CollectRCUdata.sh to add the new version, then
+	      invoke AnalyzeRCU.sh.
+
+AnalyzeRCU.sh
+
+	The main script.  Invoke this -within- -this- -directory- to
+	collect a full set of RCU and locking data for a bunch of kernel
+	versions, putting the result in ../linuxusage (edit the script to
+	change it).  Be warned that this will download a bunch of kernel
+	source trees, so you might want to avoid using this script over
+	slow dialup lines.
+
+	Edit the file CollectRCUdata.sh to select the subset of the
+	kernels for which you wish to collect data.  (Sorry, only
+	minor releases such as 2.6.24 are recognized at present.)
+	This is useful if you have run this on prior kernels and a new
+	release comes out.  The script will add the new data to the
+	old, regenerating the plots and web pages.  (But I would still
+	recommmend backing up your old data before letting the script
+	loose on it!!!)
+
+	This script generates .date, .lockwc, .rcua, .sum, and
+	.wc files for each kernel version specified.  For example,
+	for 2.6.0, it generates:
+
+		linux-2.6.0.date	Date on kernel.org's .tar.bz2 file
+		linux-2.6.0.lockwc	Count of lock operations
+		linux-2.6.0.rcua	cscope listing of RCU API uses
+		linux-2.6.0.sum		Count of RCU API uses by subtree
+		linux-2.6.0.wc		Count of RCU API uses
+
+	No, I do -not- generate a cscope listing of locking API uses,
+	given that it would weigh in at 40,000 lines.  If you -really-
+	want such a thing, you can easily create it yourself.  ;-)
+
+	In addition, it appends a line of the form "<decimal date> <count>"
+	to each of lock.dat and rcu.dat, with the count of locking and
+	RCU API uses, respectively.  The line generated for 2.6.0 in
+	rcu.dat is as follows:
+
+		2003.965 180
+
+	where 2003.965 corresponds to December 18th of that year.
+
+	It also appends an HTML table row to rculock.tab, and regenerates
+	rculocktab.html on each run.
+
+	Finally, it invokes plots.sh to generate three plots, in each
+	of .eps, .png, and .pbm formats.  These contain plots of data
+	as follows:
+
+		linux-RCU.*		Plot of RCU API usage over time
+		linux-RCUlock.*		Ditto, but also include locking
+		linux-RCUlocklog.*	Ditto, but logscale y-axis
+
+	There is no sorting step here -- it is up to you to run the
+	data-collection runs in the order you desire.  After all,
+	you might be interested in a different order than am I!
+
+	Yes, I should make it use git or something instead of downloading
+	all the .tar.bz2 files.  And yes, I -am- lazy.  Why do you ask?
+
+COPYING
+
+	Your very own copy of GPL to add to your collection.  Yes, this
+	software is licensed under GPL and is made available as a tool
+	to analyze and validate the kernel.
+
+CollectDiffs.sh
+
+	Experimental script, not part of the normal run.  Does a
+	differential profiling run comparing the number of instances
+	of RCU APIs in the various subdirectories of the kernel source
+	tree.
+
+CollectRCUdata.sh
+
+	Collects data on a bunch of kernel versions, as called out
+	in the script.  Takes the directory in which to place the
+	data as its sole optional argument (defaulting to ~/linuxusage).
+
+LinuxRCUcount.sh
+
+	Ths is the "workhorse" of the data collection process.  For
+	the specified version (and optional destination directory),
+	it downloads the kernel source tree, unpacks it, builds a
+	cscope database on it, and invokes the LockAnalysis.sh and
+	RCUanalysis.sh scripts to collect the respective data.
+	It then appends data to the .dat files, the rculock.tab file,
+	and finally regenerates the plots and the rculocktab.html file.
+
+LockAnalysis.sh
+
+	A script of cscope queries to gather data on locking.
+
+RCUanalysis.sh
+
+	A script of cscope queries to gather data on RCU.
+
+README
+
+	You are reading it!
+
+RWlockAnalysis.sh
+
+	A script of cscope queries to gather data on reader-writer spinlocks.
+	(Not used except manually.)
+
+RWsleeplockAnalysis.sh
+
+	A script of cscope queries to gather data on reader-writer semaphores.
+	(Not used except manually.)
+
+SleeplockAnalysis.sh
+
+	A script of cscope queries to gather data on semaphores.
+	(Not used except manually.)
+
+SpinlockAnalysis.sh
+
+	A script of cscope queries to gather data on spinlocks.
+	(Not used except manually.)
+
+date2frac.sh
+
+	Script that converts dates to decimal year, so that "18-Dec-2003"
+	becomes "2003.965".  Put the date as the first argument to the
+	script, the decimal is printed on standard output.  Very crude,
+	assumes 31 days in each month.	There actually was an old CACM
+	article sometime in the 60s that had a simple integer-arithmetic
+	formula to convert month-day-year into a day number, but I once
+	again was lazy.  Besides, the error from my cheap-shot approach
+	is too small to be visible.
+
+plots.sh
+
+	Invokes "gnuplot" and "convert" to produce the plots.
+
+summarizecscope.sh
+
+	Takes a cscope listing (such as that produced by RCUanalysis.sh)
+	on standard input and produces a per-subtree summarized list
+	(such as that found in the .sum files at the end of a run).
