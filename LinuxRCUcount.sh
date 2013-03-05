@@ -47,15 +47,15 @@ sign=${directory}.tar.sign
 # Signature failure likely means that the attempted download failed.
 while :
 do
-	wget http://www.kernel.org/pub/linux/kernel/v${downloadversion}/${archive}
-	wget http://www.kernel.org/pub/linux/kernel/v${downloadversion}/${sign}
+	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${archive}
+	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${sign}
 	bzcat ${archive} > ${tarball}
 	if gpg --verify $sign
 	then
 		break;
 	else
 		echo Signature verification failed: $sign
-		ll ${archive} ${sign}
+		ls -l ${archive} ${sign}
 	fi
 done
 
