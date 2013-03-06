@@ -41,25 +41,32 @@ case "$majorversion" in
 esac
 directory=linux-$version
 archive=${directory}.tar.bz2
-tarball=${directory}.tar
 sign=${directory}.tar.sign
+signbz2=${directory}.tar.bz2.sign
 
 # Signature failure likely means that the attempted download failed.
+# Some versions of Linux only sign the .tar, others sign only the .tar.bz2.
+# So try downloading and verifying both...
 while :
 do
 	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${archive}
+	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${signbz2}
 	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${sign}
-	bzcat ${archive} > ${tarball}
-	if gpg --verify $sign
+	if test -f ${signbz2} && gpg --verify ${signbz2}
+	then
+		break;
+	elif test -f ${sign} && bzcat ${archive} | gpg --verify $sign -
 	then
 		break;
 	else
-		echo Signature verification failed: $sign
-		ls -l ${archive} ${sign}
+		echo Signature verification failed: ${sign}, ${signbz2}
+		ls -l ${archive} ${sign} ${signbz2}
+		rm ${archive} ${sign} ${signbz2}
 	fi
 done
 
-tar -xf ${tarball}
+tar -xjf ${archive}
+rm -f ${archive}
 cd ${directory}
 find . \( -name SCCS -prune \) -o \( -name '*.[hcCS]' -print \) | \
 	cscope -bkq -i -
