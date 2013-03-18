@@ -40,32 +40,32 @@ case "$majorversion" in
 	3.*) downloadversion=3.x;;
 esac
 directory=linux-$version
-archive=${directory}.tar.bz2
+archive=${directory}.tar.xz
 sign=${directory}.tar.sign
-signbz2=${directory}.tar.bz2.sign
+signxz=${directory}.tar.xz.sign
 
 # Signature failure likely means that the attempted download failed.
-# Some versions of Linux only sign the .tar, others sign only the .tar.bz2.
+# Some versions of Linux only sign the .tar, others sign only the .tar.xz.
 # So try downloading and verifying both...
 while :
 do
 	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${archive}
-	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${signbz2}
+	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${signxz}
 	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${sign}
-	if test -f ${signbz2} && gpg --verify ${signbz2}
+	if test -f ${signxz} && gpg --verify ${signxz}
 	then
 		break;
-	elif test -f ${sign} && bzcat ${archive} | gpg --verify $sign -
+	elif test -f ${sign} && xzcat ${archive} | gpg --verify $sign -
 	then
 		break;
 	else
-		echo Signature verification failed: ${sign}, ${signbz2}
-		ls -l ${archive} ${sign} ${signbz2}
-		rm ${archive} ${sign} ${signbz2}
+		echo Signature verification failed: ${sign}, ${signxz}
+		ls -l ${archive} ${sign} ${signxz}
+		rm ${archive} ${sign} ${signxz}
 	fi
 done
 
-tar -xjf ${archive}
+tar -xJf ${archive}
 rm -f ${archive}
 cd ${directory}
 find . \( -name SCCS -prune \) -o \( -name '*.[hcCS]' -print \) | \
