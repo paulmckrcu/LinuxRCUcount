@@ -62,6 +62,7 @@ api="$api rcu_read_lock_bh_held"
 api="$api rcu_read_lock_sched_held"
 api="$api rcu_sleep_check"
 api="$api srcu_read_lock_held"
+api="$api rcu_is_watching"
 
 # RCU pointer/list traversal
 
