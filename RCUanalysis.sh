@@ -49,9 +49,9 @@
 	cscope -d -L -0 rcu_read_unlock_sched
 	cscope -d -L -0 rcu_read_unlock_sched_notrace
 	cscope -d -L -0 srcu_read_lock
-	cscope -d -L -0 srcu_read_lock_raw
+	cscope -d -L -0 srcu_read_lock_raw # obsolete
 	cscope -d -L -0 srcu_read_unlock
-	cscope -d -L -0 srcu_read_unlock_raw
+	cscope -d -L -0 srcu_read_unlock_raw # obsolete
 	cscope -d -L -0 RCU_NONIDLE
 
 	# RCU lockdep assertion
