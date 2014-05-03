@@ -84,6 +84,7 @@
 	cscope -d -L -0 list_entry_rcu
 	cscope -d -L -0 list_next_rcu
 	cscope -d -L -0 list_first_entry_rcu
+	cscope -d -L -0 list_first_or_null_rcu
 	cscope -d -L -0 list_for_each_rcu  # Dead!!!
 	cscope -d -L -0 list_for_each_safe_rcu  # Dead!!!
 	cscope -d -L -0 list_for_each_entry_rcu
@@ -94,11 +95,13 @@
 	cscope -d -L -0 hlist_pprev_rcu
 	cscope -d -L -0 hlist_for_each_rcu  # Dead!!!
 	cscope -d -L -0 hlist_for_each_entry_rcu
+	cscope -d -L -0 hlist_for_each_entry_rcu_notrace
 	cscope -d -L -0 hlist_for_each_entry_rcu_bh
 	cscope -d -L -0 hlist_for_each_entry_continue_rcu
 	cscope -d -L -0 hlist_for_each_entry_continue_rcu_bh
 
 	cscope -d -L -0 hlist_nulls_first_rcu
+	cscope -d -L -0 hlist_nulls_next_rcu
 	cscope -d -L -0 hlist_nulls_for_each_entry_rcu
 
 	cscope -d -L -0 hlist_bl_first_rcu
@@ -111,13 +114,15 @@
 	cscope -d -L -0 list_add_tail_rcu
 	cscope -d -L -0 list_del_rcu
 	cscope -d -L -0 list_replace_rcu
+	cscope -d -L -0 list_splice_init_rcu
+
+	cscope -d -L -0 INIT_LIST_HEAD_RCU
 	cscope -d -L -0 hlist_del_rcu
 	cscope -d -L -0 hlist_del_init_rcu
 	cscope -d -L -0 hlist_replace_rcu
 	cscope -d -L -0 hlist_add_head_rcu
 	cscope -d -L -0 hlist_add_before_rcu
 	cscope -d -L -0 hlist_add_after_rcu
-	cscope -d -L -0 list_splice_init_rcu
 
 	cscope -d -L -0 hlist_nulls_del_init_rcu
 	cscope -d -L -0 hlist_nulls_del_rcu
