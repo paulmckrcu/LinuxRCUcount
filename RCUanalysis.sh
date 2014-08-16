@@ -176,6 +176,7 @@
     grep -v '^kernel/rcutree_plugin\.h' | \
     grep -v '^kernel/rcutree_trace\.c' | \
     grep -v '^kernel/srcu\.c' | \
+    grep -v '^kernel/rcu/' | \
     grep -v "File does not have expected format" | \
     grep -v "^$" | \
     sort --key=1,1 --key=3n
