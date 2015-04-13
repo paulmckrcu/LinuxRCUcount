@@ -38,6 +38,7 @@ case "$majorversion" in
 	2.5) downloadversion=2.5;;
 	2.6) downloadversion=2.6;;
 	3.*) downloadversion=3.x;;
+	4.*) downloadversion=4.x;;
 esac
 directory=linux-$version
 archive=${directory}.tar.xz
