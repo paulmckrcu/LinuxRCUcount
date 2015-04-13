@@ -114,4 +114,9 @@ destdir=${1-~/linuxusage}
 # sh LinuxRCUcount.sh 3.13 ${destdir}
 # sh LinuxRCUcount.sh 3.14 ${destdir}
 # sh LinuxRCUcount.sh 3.15 ${destdir}
-sh LinuxRCUcount.sh 3.16 ${destdir}
+# sh LinuxRCUcount.sh 3.16 ${destdir}
+# sh LinuxRCUcount.sh 3.17 ${destdir}
+# sh LinuxRCUcount.sh 3.18 ${destdir}
+# sh LinuxRCUcount.sh 3.19 ${destdir}
+
+sh LinuxRCUcount.sh 4.0 ${destdir}
