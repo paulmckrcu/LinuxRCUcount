@@ -80,6 +80,7 @@
 	cscope -d -L -0 rcu_dereference_sched_protected
 	cscope -d -L -0 srcu_dereference
 	cscope -d -L -0 srcu_dereference_check
+	cscope -d -L -0 rcu_pointer_handoff
 
 	cscope -d -L -0 list_entry_rcu
 	cscope -d -L -0 list_next_rcu
