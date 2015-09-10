@@ -32,7 +32,8 @@
 	cscope -d -L -0 cleanup_srcu_struct
 	cscope -d -L -0 RCU_HEAD_INIT # DEAD
 	cscope -d -L -0 RCU_INIT_POINTER
-	cscope -d -L -0 INIT_RCU_POINTER
+	cscope -d -L -0 RCU_INITIALIZER
+	cscope -d -L -0 INIT_RCU_POINTER # obsolete
 	cscope -d -L -0 RCU_POINTER_INITIALIZER
 	cscope -d -L -0 init_rcu_head_on_stack
 	cscope -d -L -0 destroy_rcu_head_on_stack
@@ -56,7 +57,8 @@
 
 	# RCU lockdep assertion
 
-	cscope -d -L -0 rcu_lockdep_assert
+	cscope -d -L -0 rcu_lockdep_assert # obsolete
+	cscope -d -L -0 RCU_LOCKDEP_WARN
 	cscope -d -L -0 rcu_read_lock_held
 	cscope -d -L -0 rcu_read_lock_bh_held
 	cscope -d -L -0 rcu_read_lock_sched_held
@@ -66,15 +68,16 @@
 	# RCU pointer/list traversal
 
 	cscope -d -L -0 rcu_access_pointer
-	cscope -d -L -0 rcu_access_index
+	cscope -d -L -0 rcu_access_index # obsolete
 	cscope -d -L -0 rcu_dereference
 	cscope -d -L -0 rcu_dereference_bh
 	cscope -d -L -0 rcu_dereference_bh_check
 	cscope -d -L -0 rcu_dereference_bh_protected
 	cscope -d -L -0 rcu_dereference_check
-	cscope -d -L -0 rcu_dereference_index_check
+	cscope -d -L -0 rcu_dereference_index_check # obsolete
 	cscope -d -L -0 rcu_dereference_protected
 	cscope -d -L -0 rcu_dereference_raw
+	cscope -d -L -0 rcu_dereference_raw_notrace
 	cscope -d -L -0 rcu_dereference_sched
 	cscope -d -L -0 rcu_dereference_sched_check
 	cscope -d -L -0 rcu_dereference_sched_protected
@@ -100,6 +103,7 @@
 	cscope -d -L -0 hlist_for_each_entry_rcu_bh
 	cscope -d -L -0 hlist_for_each_entry_continue_rcu
 	cscope -d -L -0 hlist_for_each_entry_continue_rcu_bh
+	cscope -d -L -0 hlist_for_each_entry_from_rcu
 
 	cscope -d -L -0 hlist_nulls_first_rcu
 	cscope -d -L -0 hlist_nulls_next_rcu
@@ -123,7 +127,8 @@
 	cscope -d -L -0 hlist_replace_rcu
 	cscope -d -L -0 hlist_add_head_rcu
 	cscope -d -L -0 hlist_add_before_rcu
-	cscope -d -L -0 hlist_add_after_rcu
+	cscope -d -L -0 hlist_add_behind_rcu
+	cscope -d -L -0 hlist_add_after_rcu # obsolete
 
 	cscope -d -L -0 hlist_nulls_del_init_rcu
 	cscope -d -L -0 hlist_nulls_del_rcu
@@ -140,10 +145,12 @@
 	cscope -d -L -0 call_rcu
 	cscope -d -L -0 call_rcu_bh
 	cscope -d -L -0 call_rcu_sched
+	cscope -d -L -0 call_rcu_tasks
 	cscope -d -L -0 call_srcu
 	cscope -d -L -0 rcu_barrier
 	cscope -d -L -0 rcu_barrier_bh
 	cscope -d -L -0 rcu_barrier_sched
+	cscope -d -L -0 rcu_barrier_tasks
 	cscope -d -L -0 srcu_barrier
 	cscope -d -L -0 synchronize_kernel # Dead!!!
 	cscope -d -L -0 synchronize_net
@@ -151,10 +158,25 @@
 	cscope -d -L -0 synchronize_rcu_expedited
 	cscope -d -L -0 synchronize_rcu_bh
 	cscope -d -L -0 synchronize_rcu_bh_expedited
+	cscope -d -L -0 synchronize_rcu_tasks
 	cscope -d -L -0 synchronize_sched
 	cscope -d -L -0 synchronize_sched_expedited
 	cscope -d -L -0 synchronize_srcu
 	cscope -d -L -0 synchronize_srcu_expedited
+	cscope -d -L -0 synchronize_rcu_mult
+	cscope -d -L -0 rcu_expedite_gp
+	cscope -d -L -0 rcu_unexpedite_gp
+	cscope -d -L -0 rcu_gp_is_expedited
+	cscope -d -L -0 rcu_end_inkernel_boot
+	cscope -d -L -0 cond_resched_rcu_qs
+
+	# RCU-sync primitive
+
+	cscope -d -L -0 rcu_sync_is_idle
+	cscope -d -L -0 rcu_sync_init
+	cscope -d -L -0 rcu_sync_enter
+	cscope -d -L -0 rcu_sync_exit
+	cscope -d -L -0 rcu_sync_dtor
 ) | grep -v '^include/linux/rcuclassic\.h' | \
     grep -v '^include/linux/rculist\.h' | \
     grep -v '^include/linux/rculist_bl\.h' | \
@@ -164,6 +186,7 @@
     grep -v '^include/linux/rcupreempt_trace\.h' | \
     grep -v '^include/linux/rcutiny\.h' | \
     grep -v '^include/linux/rcutree\.h' | \
+    grep -v '^include/linux/rcu_sync\.h' | \
     grep -v '^include/linux/srcu\.h' | \
     grep -v '^kernel/rcuclassic\.c' | \
     grep -v '^kernel/rcupdate\.c' | \
