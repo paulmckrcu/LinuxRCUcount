@@ -42,11 +42,10 @@ set nokey
 set yrange [0:]
 plot "rcu.dat"
 set size 1,1
-set term pbm medium
+set term png medium
 set output "linux-RCU.pbm"
 replot
 ---EOF---
-convert linux-RCU.pbm linux-RCU.png
 
 gnuplot << ---EOF---
 set term postscript portrait ${fontsize}
@@ -58,16 +57,15 @@ set ylabel "# RCU/locking API Uses"
 set style data lines
 set yrange [0:]
 set nokey
-set label 1 "locking" at 2007,58000 r
-set label 2 "RCU" at 2007,5500 l
+set label 1 "locking" at 2007,60000 r
+set label 2 "RCU" at 2014,14000 r
 # set label 3 "Locking" at 2003.5,17000 l
 plot "rcu.dat", "lock.dat"
 set size 1,1
-set term pbm medium
+set term png medium
 set output "linux-RCUlock.pbm"
 replot
 ---EOF---
-convert linux-RCUlock.pbm linux-RCUlock.png
 
 gnuplot << ---EOF---
 set term postscript portrait ${fontsize}
@@ -81,15 +79,14 @@ set yrange [1:]
 set logscale y
 set nokey
 # set label 1 "2.5 RCU" at 2003.2,15 l
-set label 2 "RCU" at 2006.3,550 l
-set label 3 "Locking" at 2005,25000 l
+set label 2 "RCU" at 2006.8,550 l
+set label 3 "Locking" at 2005,22000 l
 plot "rcu.dat", "lock.dat"
 set size 1,1
-set term pbm medium
+set term png medium
 set output "linux-RCUlocklog.pbm"
 replot
 ---EOF---
-convert linux-RCUlocklog.pbm linux-RCUlocklog.png
 
 join lock.dat rcu.dat | awk '{ print $1, 100 * $3 / $2 }' > rculockpct.dat
 gnuplot << ---EOF---
@@ -108,8 +105,7 @@ set nokey
 # set label 3 "Locking" at 2005,25000 l
 plot "rculockpct.dat"
 set size 1,1
-set term pbm medium
+set term png medium
 set output "linux-RCUlockpct.pbm"
 replot
 ---EOF---
-convert linux-RCUlockpct.pbm linux-RCUlockpct.png
