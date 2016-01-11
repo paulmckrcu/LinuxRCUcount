@@ -43,7 +43,7 @@ set yrange [0:]
 plot "rcu.dat"
 set size 1,1
 set term png medium
-set output "linux-RCU.pbm"
+set output "linux-RCU.png"
 replot
 ---EOF---
 
@@ -63,7 +63,7 @@ set label 2 "RCU" at 2014,14000 r
 plot "rcu.dat", "lock.dat"
 set size 1,1
 set term png medium
-set output "linux-RCUlock.pbm"
+set output "linux-RCUlock.png"
 replot
 ---EOF---
 
@@ -84,7 +84,7 @@ set label 3 "Locking" at 2005,22000 l
 plot "rcu.dat", "lock.dat"
 set size 1,1
 set term png medium
-set output "linux-RCUlocklog.pbm"
+set output "linux-RCUlocklog.png"
 replot
 ---EOF---
 
@@ -106,6 +106,6 @@ set nokey
 plot "rculockpct.dat"
 set size 1,1
 set term png medium
-set output "linux-RCUlockpct.pbm"
+set output "linux-RCUlockpct.png"
 replot
 ---EOF---
