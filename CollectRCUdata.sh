@@ -23,7 +23,7 @@
 #
 # Authors: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
 
-destdir=${1-~/linuxusage}
+destdir=${1-~/paper/RCU/intro/linuxusage}
 
 # sh LinuxRCUcount.sh 2.5.45 ${destdir}
 # sh LinuxRCUcount.sh 2.5.46 ${destdir}
@@ -123,4 +123,28 @@ destdir=${1-~/linuxusage}
 # sh LinuxRCUcount.sh 4.1 ${destdir}
 # sh LinuxRCUcount.sh 4.2 ${destdir}
 # sh LinuxRCUcount.sh 4.3 ${destdir}
-sh LinuxRCUcount.sh 4.4 ${destdir}
+# sh LinuxRCUcount.sh 4.4 ${destdir}
+# sh LinuxRCUcount.sh 4.5 ${destdir}
+# sh LinuxRCUcount.sh 4.6 ${destdir}
+# sh LinuxRCUcount.sh 4.7 ${destdir}
+# sh LinuxRCUcount.sh 4.8 ${destdir}
+# sh LinuxRCUcount.sh 4.9 ${destdir}
+# sh LinuxRCUcount.sh 4.10 ${destdir}
+# sh LinuxRCUcount.sh 4.11 ${destdir}
+# sh LinuxRCUcount.sh 4.12 ${destdir}
+# sh LinuxRCUcount.sh 4.13 ${destdir}
+# sh LinuxRCUcount.sh 4.14 ${destdir}
+# sh LinuxRCUcount.sh 4.15 ${destdir}
+# sh LinuxRCUcount.sh 4.16 ${destdir}
+# sh LinuxRCUcount.sh 4.17 ${destdir}
+# sh LinuxRCUcount.sh 4.18 ${destdir}
+# sh LinuxRCUcount.sh 4.19 ${destdir}
+# sh LinuxRCUcount.sh 4.20 ${destdir}
+
+# sh LinuxRCUcount.sh 5.0 ${destdir}
+# sh LinuxRCUcount.sh 5.1 ${destdir}
+# sh LinuxRCUcount.sh 5.2 ${destdir}
+# sh LinuxRCUcount.sh 5.3 ${destdir}
+# sh LinuxRCUcount.sh 5.4 ${destdir}
+# sh LinuxRCUcount.sh 5.5 ${destdir}
+sh LinuxRCUcount.sh 5.6 ${destdir}
