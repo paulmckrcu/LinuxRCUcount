@@ -70,7 +70,8 @@ done
 tar -xJf ${archive}
 rm -f ${archive}
 cd ${directory}
-find . \( -name SCCS -prune \) -o \( -name '*.[hcCS]' -print \) | \
+DIRS="`ls -d */ | egrep -v '^(certs|Documentation|firmware|samples|scripts|tools|usr)/$'`"
+find $DIRS \( -name SCCS -prune \) -o \( -name .git -prune \) -o \( -name '*.[hcCS]' -print \) |
 	cscope -bkq -i -
 sh ${destdir}/RCUanalysis.sh > $T/F/${directory}.rcua
 wc -l < $T/F/${directory}.rcua > $T/F/${directory}.wc
