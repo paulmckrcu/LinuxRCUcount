@@ -25,7 +25,7 @@
 # Initialization and cleanup
 
 cscope -d -L -0 DEFINE_RWLOCK
-cscope -d -L -0 RW_LOCK_UNLOCKED
+cscope -d -L -0 __RW_LOCK_UNLOCKED
 cscope -d -L -0 rwlock_init
 
 # Markers for reader-writer critical sections
