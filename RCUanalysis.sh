@@ -165,6 +165,9 @@
 	cscope -d -L -0 call_srcu
 	cscope -d -L -0 cond_synchronize_rcu
 	cscope -d -L -0 get_state_synchronize_rcu
+	cscope -d -L -0 get_state_synchronize_srcu
+	cscope -d -L -0 start_poll_synchronize_srcu
+	cscope -d -L -0 poll_state_synchronize_srcu
 	cscope -d -L -0 rcu_barrier
 	cscope -d -L -0 rcu_barrier_bh # Dead!!!
 	cscope -d -L -0 rcu_barrier_sched # Dead!!!
