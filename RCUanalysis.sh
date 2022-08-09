@@ -55,6 +55,8 @@
 	cscope -d -L -0 rcu_read_lock_sched_notrace
 	cscope -d -L -0 rcu_read_unlock_sched
 	cscope -d -L -0 rcu_read_unlock_sched_notrace
+	cscope -d -L -0 rcu_read_lock_trace
+	cscope -d -L -0 rcu_read_unlock_trace
 	cscope -d -L -0 srcu_read_lock
 	cscope -d -L -0 srcu_read_lock_raw # Dead!!!
 	cscope -d -L -0 srcu_read_lock_notrace
@@ -70,6 +72,7 @@
 	cscope -d -L -0 rcu_read_lock_held
 	cscope -d -L -0 rcu_read_lock_bh_held
 	cscope -d -L -0 rcu_read_lock_sched_held
+	cscope -d -L -0 rcu_read_lock_trace_held
 	cscope -d -L -0 rcu_sleep_check
 	cscope -d -L -0 srcu_read_lock_held
 
@@ -162,16 +165,23 @@
 	cscope -d -L -0 call_rcu_bh # Dead!!!
 	cscope -d -L -0 call_rcu_sched # Dead!!!
 	cscope -d -L -0 call_rcu_tasks
+	cscope -d -L -0 call_rcu_tasks_rude
+	cscope -d -L -0 call_rcu_tasks_trace
 	cscope -d -L -0 call_srcu
 	cscope -d -L -0 cond_synchronize_rcu
+	cscope -d -L -0 cond_synchronize_rcu_expedited
+	cscope -d -L -0 get_completed_synchronize_rcu
 	cscope -d -L -0 get_state_synchronize_rcu
 	cscope -d -L -0 get_state_synchronize_srcu
 	cscope -d -L -0 start_poll_synchronize_srcu
+	cscope -d -L -0 start_poll_synchronize_srcu_expedited
 	cscope -d -L -0 poll_state_synchronize_srcu
 	cscope -d -L -0 rcu_barrier
 	cscope -d -L -0 rcu_barrier_bh # Dead!!!
 	cscope -d -L -0 rcu_barrier_sched # Dead!!!
 	cscope -d -L -0 rcu_barrier_tasks
+	cscope -d -L -0 rcu_barrier_tasks_rude
+	cscope -d -L -0 rcu_barrier_tasks_trace
 	cscope -d -L -0 srcu_barrier
 	cscope -d -L -0 synchronize_kernel # Dead!!!
 	cscope -d -L -0 synchronize_net
@@ -180,6 +190,8 @@
 	cscope -d -L -0 synchronize_rcu_bh # Dead!!!
 	cscope -d -L -0 synchronize_rcu_bh_expedited # Dead!!!
 	cscope -d -L -0 synchronize_rcu_tasks
+	cscope -d -L -0 synchronize_rcu_tasks_rude
+	cscope -d -L -0 synchronize_rcu_tasks_trace
 	cscope -d -L -0 synchronize_sched # Dead!!!
 	cscope -d -L -0 synchronize_sched_expedited # Dead!!!
 	cscope -d -L -0 synchronize_srcu
