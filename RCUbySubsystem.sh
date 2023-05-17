@@ -39,4 +39,4 @@ done | sort > $T/loc
 join -j 1 $T/u $T/loc | sed -e 's,/ , ,' > $T/uloc
 awk '{ print $1, $2, $3, $2 * 1000 / $3 }' < $T/uloc | sort -k4nr > $T/ulocf
 awk '{ s2 += $2; s3 += $3; print $0 } END { print "Total", s2, s3, s2 * 1000 / s3 }' < $T/ulocf > $T/ulocft
-awk '{ printf "%s & %d & %'"'"'d & %5.2f \\\\\n", $1, $2, $3, $4 }' < $T/ulocft
+awk '{ printf "%s & %'"'"'d & %'"'"'d & %5.2f \\\\\n", $1, $2, $3, $4 }' < $T/ulocft
