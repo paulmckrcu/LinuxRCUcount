@@ -63,7 +63,7 @@
 	cscope -d -L -0 srcu_read_unlock
 	cscope -d -L -0 srcu_read_unlock_raw # Dead!!!
 	cscope -d -L -0 srcu_read_unlock_notrace
-	cscope -d -L -0 RCU_NONIDLE
+	cscope -d -L -0 RCU_NONIDLE # Dead!!!
 
 	# RCU lockdep assertion
 
@@ -168,14 +168,6 @@
 	cscope -d -L -0 call_rcu_tasks_rude
 	cscope -d -L -0 call_rcu_tasks_trace
 	cscope -d -L -0 call_srcu
-	cscope -d -L -0 cond_synchronize_rcu
-	cscope -d -L -0 cond_synchronize_rcu_expedited
-	cscope -d -L -0 get_completed_synchronize_rcu
-	cscope -d -L -0 get_state_synchronize_rcu
-	cscope -d -L -0 get_state_synchronize_srcu
-	cscope -d -L -0 start_poll_synchronize_srcu
-	cscope -d -L -0 start_poll_synchronize_srcu_expedited
-	cscope -d -L -0 poll_state_synchronize_srcu
 	cscope -d -L -0 rcu_barrier
 	cscope -d -L -0 rcu_barrier_bh # Dead!!!
 	cscope -d -L -0 rcu_barrier_sched # Dead!!!
@@ -197,11 +189,39 @@
 	cscope -d -L -0 synchronize_srcu
 	cscope -d -L -0 synchronize_srcu_expedited
 	cscope -d -L -0 synchronize_rcu_mult
-	cscope -d -L -0 rcu_expedite_gp
-	cscope -d -L -0 rcu_unexpedite_gp
-	cscope -d -L -0 rcu_gp_is_expedited
-	cscope -d -L -0 rcu_end_inkernel_boot
+
+	# RCU polled grace period
+
+	cscope -d -L -0 cond_synchronize_rcu
+	cscope -d -L -0 cond_synchronize_rcu_full
+	cscope -d -L -0 cond_synchronize_rcu_expedited
+	cscope -d -L -0 cond_synchronize_rcu_expedited_full
+	cscope -d -L -0 get_completed_synchronize_rcu
+	cscope -d -L -0 get_completed_synchronize_rcu_full
+	cscope -d -L -0 get_state_synchronize_rcu
+	cscope -d -L -0 get_state_synchronize_rcu_full
+	cscope -d -L -0 get_state_synchronize_srcu
+	cscope -d -L -0 poll_state_synchronize_rcu
+	cscope -d -L -0 poll_state_synchronize_rcu_full
+	cscope -d -L -0 same_state_synchronize_rcu
+	cscope -d -L -0 same_state_synchronize_rcu_full
+	cscope -d -L -0 start_poll_synchronize_rcu
+	cscope -d -L -0 start_poll_synchronize_rcu_full
+	cscope -d -L -0 start_poll_synchronize_rcu_expedited
+	cscope -d -L -0 start_poll_synchronize_rcu_expedited_full
+	cscope -d -L -0 start_poll_synchronize_srcu
+	cscope -d -L -0 start_poll_synchronize_srcu_expedited
+	cscope -d -L -0 poll_state_synchronize_srcu
+
+	# RCU grace-period/quiescent-state control
+
 	cscope -d -L -0 cond_resched_rcu_qs # Dead!!!
+	cscope -d -L -0 cond_resched_tasks_rcu_qs
+	cscope -d -L -0 rcu_all_qs
+	cscope -d -L -0 rcu_end_inkernel_boot
+	cscope -d -L -0 rcu_expedite_gp
+	cscope -d -L -0 rcu_gp_is_expedited
+	cscope -d -L -0 rcu_unexpedite_gp
 
 	# RCU-sync primitive
 
