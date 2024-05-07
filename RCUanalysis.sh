@@ -57,12 +57,15 @@
 	cscope -d -L -0 rcu_read_unlock_sched_notrace
 	cscope -d -L -0 rcu_read_lock_trace
 	cscope -d -L -0 rcu_read_unlock_trace
+	cscope -d -L -6 "guard\(rcu\)\(\)"
 	cscope -d -L -0 srcu_read_lock
 	cscope -d -L -0 srcu_read_lock_raw # Dead!!!
 	cscope -d -L -0 srcu_read_lock_notrace
 	cscope -d -L -0 srcu_read_unlock
 	cscope -d -L -0 srcu_read_unlock_raw # Dead!!!
 	cscope -d -L -0 srcu_read_unlock_notrace
+	cscope -d -L -6 "guard\(srcu\)\("
+	cscope -d -L -6 "scoped_guard\(srcu,"
 	cscope -d -L -0 RCU_NONIDLE # Dead!!!
 
 	# RCU lockdep assertion
