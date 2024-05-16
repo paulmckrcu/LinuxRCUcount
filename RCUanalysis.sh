@@ -59,11 +59,16 @@
 	cscope -d -L -0 rcu_read_unlock_trace
 	cscope -d -L -6 "guard\(rcu\)\(\)"
 	cscope -d -L -0 srcu_read_lock
+	cscope -d -L -0 srcu_read_lock_nmisafe
 	cscope -d -L -0 srcu_read_lock_raw # Dead!!!
 	cscope -d -L -0 srcu_read_lock_notrace
 	cscope -d -L -0 srcu_read_unlock
+	cscope -d -L -0 srcu_read_unlock_nmisafe
 	cscope -d -L -0 srcu_read_unlock_raw # Dead!!!
 	cscope -d -L -0 srcu_read_unlock_notrace
+	cscope -d -L -0 srcu_down_read
+	cscope -d -L -0 srcu_up_read
+	cscope -d -L -0 smp_mb__after_srcu_read_unlock
 	cscope -d -L -6 "guard\(srcu\)\("
 	cscope -d -L -6 "scoped_guard\(srcu,"
 	cscope -d -L -0 RCU_NONIDLE # Dead!!!
@@ -76,6 +81,7 @@
 	cscope -d -L -0 rcu_read_lock_bh_held
 	cscope -d -L -0 rcu_read_lock_sched_held
 	cscope -d -L -0 rcu_read_lock_trace_held
+	cscope -d -L -0 rcu_read_lock_any_held
 	cscope -d -L -0 rcu_sleep_check
 	cscope -d -L -0 srcu_read_lock_held
 
@@ -91,7 +97,8 @@
 	cscope -d -L -0 rcu_dereference_index_check # Dead!!!
 	cscope -d -L -0 rcu_dereference_protected
 	cscope -d -L -0 rcu_dereference_raw
-	cscope -d -L -0 rcu_dereference_raw_notrace
+	cscope -d -L -0 rcu_dereference_raw_check
+	cscope -d -L -0 rcu_dereference_raw_notrace # Dead!!!
 	cscope -d -L -0 rcu_dereference_sched
 	cscope -d -L -0 rcu_dereference_sched_check
 	cscope -d -L -0 rcu_dereference_sched_protected # Dead!!!
@@ -106,6 +113,7 @@
 	cscope -d -L -0 list_first_entry_rcu # Dead!!!
 	cscope -d -L -0 list_first_or_null_rcu
 	cscope -d -L -0 list_next_or_null_rcu
+	cscope -d -L -0 list_tail_rcu
 	cscope -d -L -0 list_for_each_rcu  # Dead!!!
 	cscope -d -L -0 list_for_each_safe_rcu  # Dead!!!
 	cscope -d -L -0 list_for_each_entry_rcu
@@ -113,6 +121,7 @@
 	cscope -d -L -0 list_for_each_entry_continue_rcu
 	cscope -d -L -0 list_for_each_entry_from_rcu
 	cscope -d -L -0 list_for_each_entry_lockless
+	cscope -d -L -0 list_for_each_entry_srcu
 	cscope -d -L -0 hlist_first_rcu
 	cscope -d -L -0 hlist_next_rcu
 	cscope -d -L -0 hlist_pprev_rcu
@@ -123,6 +132,7 @@
 	cscope -d -L -0 hlist_for_each_entry_continue_rcu
 	cscope -d -L -0 hlist_for_each_entry_continue_rcu_bh
 	cscope -d -L -0 hlist_for_each_entry_from_rcu
+	cscope -d -L -0 hlist_for_each_entry_srcu
 
 	cscope -d -L -0 hlist_nulls_first_rcu
 	cscope -d -L -0 hlist_nulls_next_rcu
@@ -135,6 +145,8 @@
 	# RCU pointer update
 
 	cscope -d -L -0 rcu_assign_pointer
+	cscope -d -L -0 rcu_replace_pointer
+	cscope -d -L -0 unrcu_pointer
 	cscope -d -L -0 list_add_rcu
 	cscope -d -L -0 list_add_tail_rcu
 	cscope -d -L -0 list_del_rcu
@@ -150,21 +162,28 @@
 	cscope -d -L -0 hlist_add_before_rcu
 	cscope -d -L -0 hlist_add_behind_rcu
 	cscope -d -L -0 hlist_add_tail_rcu
-	cscope -d -L -0 hlist_add_after_rcu # obsolete
+	cscope -d -L -0 hlist_add_after_rcu # Dead!!!
+	cscope -d -L -0 hlist_nulls_add_fake
+	cscope -d -L -0 hlists_swap_heads_rcu
 
 	cscope -d -L -0 hlist_nulls_del_init_rcu
 	cscope -d -L -0 hlist_nulls_del_rcu
 	cscope -d -L -0 hlist_nulls_add_head_rcu
+	cscope -d -L -0 hlist_nulls_add_tail_rcu
 
 	cscope -d -L -0 hlist_bl_set_first_rcu
-	cscope -d -L -0 hlist_bl_del_init_rcu
+	cscope -d -L -0 hlist_bl_del_init_rcu # Dead!!!
 	cscope -d -L -0 hlist_bl_del_rcu
 	cscope -d -L -0 hlist_bl_add_head_rcu
 
 	# RCU grace period
 
 	cscope -d -L -0 kfree_rcu
+	cscope -d -L -0 kvfree_rcu
+	cscope -d -L -0 kfree_rcu_mightsleep
+	cscope -d -L -0 kvfree_rcu_mightsleep
 	cscope -d -L -0 call_rcu
+	cscope -d -L -0 call_rcu_hurry
 	cscope -d -L -0 call_rcu_bh # Dead!!!
 	cscope -d -L -0 call_rcu_sched # Dead!!!
 	cscope -d -L -0 call_rcu_tasks
@@ -187,6 +206,7 @@
 	cscope -d -L -0 synchronize_rcu_tasks
 	cscope -d -L -0 synchronize_rcu_tasks_rude
 	cscope -d -L -0 synchronize_rcu_tasks_trace
+	cscope -d -L -0 rcu_trace_implies_rcu_gp
 	cscope -d -L -0 synchronize_sched # Dead!!!
 	cscope -d -L -0 synchronize_sched_expedited # Dead!!!
 	cscope -d -L -0 synchronize_srcu
@@ -221,6 +241,7 @@
 	cscope -d -L -0 cond_resched_rcu_qs # Dead!!!
 	cscope -d -L -0 cond_resched_tasks_rcu_qs
 	cscope -d -L -0 rcu_all_qs
+	cscope -d -L -0 rcu_softirq_qs_periodic
 	cscope -d -L -0 rcu_end_inkernel_boot
 	cscope -d -L -0 rcu_expedite_gp
 	cscope -d -L -0 rcu_gp_is_expedited
