@@ -20,33 +20,13 @@
 #
 # Authors: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
 
-(
+destdir=${1-.}
 
-	# Initialization and cleanup
-
-	cscope -d -L -0 DEFINE_RWLOCK
-	cscope -d -L -0 RW_LOCK_UNLOCKED
-
-	# Markers for reader-writer critical sections
-
-	cscope -d -L -0 read_lock
-	cscope -d -L -0 read_lock_bh
-	cscope -d -L -0 read_lock_irq
-	cscope -d -L -0 read_lock_irqsave
-	cscope -d -L -0 read_trylock
-	cscope -d -L -0 read_unlock
-	cscope -d -L -0 read_unlock_bh
-	cscope -d -L -0 read_unlock_irq
-	cscope -d -L -0 read_unlock_irqrestore
-
-	cscope -d -L -0 write_lock
-	cscope -d -L -0 write_lock_bh
-	cscope -d -L -0 write_lock_irq
-	cscope -d -L -0 write_lock_irqsave
-	cscope -d -L -0 write_unlock
-	cscope -d -L -0 write_unlock_bh
-	cscope -d -L -0 write_unlock_irq
-	cscope -d -L -0 write_unlock_irqrestore
-) | grep -v "File does not have expected format" | \
-    grep -v "^$" | \
-    sort --key=1,1 --key=3n
+sh ${destdir}/RWlockCommon.sh | \
+	grep -v '^include/linux/.*rwlock.*\.h' | \
+	grep -v '^include/linux/rwsem\.h' | \
+	grep -v '^include/linux/percpu-rwsem\.h' | \
+	grep -v '^kernel/locking/' | \
+	grep -v "File does not have expected format" | \
+	grep -v "^$" | \
+	sort --key=1,1 --key=3n

@@ -78,8 +78,8 @@ find $DIRS \( -name SCCS -prune \) -o \( -name .git -prune \) -o \( -name '*.[hc
 sh ${destdir}/RCUanalysis.sh > $T/F/${directory}.rcua
 wc -l < $T/F/${directory}.rcua > $T/F/${directory}.wc
 sh ${destdir}/summarizecscope.sh < $T/F/${directory}.rcua > $T/F/${directory}.sum
-sh ${destdir}/LockAnalysis.sh | wc -l > $T/F/${directory}.lockwc
-sh ${destdir}/RWlockAnalysis.sh | wc -l > $T/F/${directory}.rwlockwc
+sh ${destdir}/LockAnalysis.sh ${destdir} | wc -l > $T/F/${directory}.lockwc
+sh ${destdir}/RWlockAnalysis.sh ${destdir} | wc -l > $T/F/${directory}.rwlockwc
 cd ${destdir}
 mkdir $outdir || :
 cp $T/F/* $outdir

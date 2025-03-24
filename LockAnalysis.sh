@@ -20,220 +20,240 @@
 #
 # Authors: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
 
-## Reader-writer lock.
+destdir=${1-.}
 
-# Initialization and cleanup
+(
 
-cscope -d -L -0 DEFINE_RWLOCK
-cscope -d -L -0 __RW_LOCK_UNLOCKED
-cscope -d -L -0 rwlock_init
+	sh ${destdir}/RWlockCommon.sh
 
-# Markers for reader-writer critical sections
+	## Mutexes
 
-cscope -d -L -0 read_lock
-cscope -d -L -0 read_lock_bh
-cscope -d -L -0 read_lock_irq
-cscope -d -L -0 read_lock_irqsave
-cscope -d -L -0 read_trylock
-cscope -d -L -0 read_unlock
-cscope -d -L -0 read_unlock_bh
-cscope -d -L -0 read_unlock_irq
-cscope -d -L -0 read_unlock_irqrestore
+	# Initialization and cleanup
 
-cscope -d -L -0 write_lock
-cscope -d -L -0 write_lock_bh
-cscope -d -L -0 write_lock_irq
-cscope -d -L -0 write_lock_irqsave
-cscope -d -L -0 write_trylock
-cscope -d -L -0 write_trylock_irqsave
-cscope -d -L -0 write_unlock
-cscope -d -L -0 write_unlock_bh
-cscope -d -L -0 write_unlock_irq
-cscope -d -L -0 write_unlock_irqrestore
+	cscope -d -L -0 mutex_init
+	cscope -d -L -0 DEFINE_MUTEX
 
-## Reader-writer semaphore
+	# Exclusive critical sections
 
-# Initialization and cleanup
+	cscope -d -L -0 mutex_lock
+	cscope -d -L -0 mutex_lock_interruptible
+	cscope -d -L -0 mutex_lock_killable
+	cscope -d -L -0 mutex_lock_nested
+	cscope -d -L -0 mutex_lock_nest_lock
+	cscope -d -L -0 mutex_trylock
+	cscope -d -L -0 atomic_dec_and_mutex_lock
+	cscope -d -L -0 mutex_unlock
 
-cscope -d -L -0 DECLARE_RWSEM
+	# Test for lock held
 
-# Markers for reader-writer critical sections
+	cscope -d -L -0 mutex_is_locked
 
-cscope -d -L -0 down_read
-cscope -d -L -0 down_read_trylock
-cscope -d -L -0 down_write
-cscope -d -L -0 down_write_trylock
-cscope -d -L -0 up_read
-cscope -d -L -0 up_write
-cscope -d -L -0 downgrade_write
+	## RT Mutexes
 
-# test for lock held
+	# Initialization and cleanup
 
-cscope -d -L -0 rwsem_is_locked
+	cscope -d -L -0 DEFINE_RT_MUTEX
+	cscope -d -L -0 rt_mutex_destroy
 
-## Mutexes
+	# Exclusive critical sections
 
-# Initialization and cleanup
+	cscope -d -L -0 rt_mutex_lock
+	cscope -d -L -0 rt_mutex_lock_interruptible
+	cscope -d -L -0 rt_mutex_timed_lock
+	cscope -d -L -0 rt_mutex_trylock
+	cscope -d -L -0 rt_mutex_unlock
 
-cscope -d -L -0 mutex_init
-cscope -d -L -0 DEFINE_MUTEX
+	# Test for lock held
 
-# Exclusive critical sections
+	cscope -d -L -0 rt_mutex_is_locked
 
-cscope -d -L -0 mutex_lock
-cscope -d -L -0 mutex_lock_interruptible
-cscope -d -L -0 mutex_lock_killable
-cscope -d -L -0 mutex_lock_nested
-cscope -d -L -0 mutex_lock_nest_lock
-cscope -d -L -0 mutex_trylock
-cscope -d -L -0 atomic_dec_and_mutex_lock
-cscope -d -L -0 mutex_unlock
+	## Exclusive semaphores
 
-# Test for lock held
+	# Initialization and cleanup
 
-cscope -d -L -0 mutex_is_locked
+	cscope -d -L -0 DEFINE_SEMAPHORE
+	cscope -d -L -0 init_sema
+	cscope -d -L -0 initsema
+	cscope -d -L -0 initnsema
+	cscope -d -L -0 sema_init
 
-## RT Mutexes
+	# Markers for exclusive critical sections
 
-# Initialization and cleanup
+	cscope -d -L -0 down
+	cscope -d -L -0 down_interruptible
+	cscope -d -L -0 down_killable
+	cscope -d -L -0 down_timeout
+	cscope -d -L -0 down_trylock
+	cscope -d -L -0 up
 
-cscope -d -L -0 DEFINE_RT_MUTEX
-cscope -d -L -0 rt_mutex_destroy
+	# XFS mappings (probably others as well, but...)
 
-# Exclusive critical sections
+	cscope -d -L -0 psema
+	cscope -d -L -0 cpsema
+	cscope -d -L -0 vsema
+	cscope -d -L -0 valusema
+	cscope -d -L -0 freesema
 
-cscope -d -L -0 rt_mutex_lock
-cscope -d -L -0 rt_mutex_lock_interruptible
-cscope -d -L -0 rt_mutex_timed_lock
-cscope -d -L -0 rt_mutex_trylock
-cscope -d -L -0 rt_mutex_unlock
+	## Exclusive spinlocks
 
-# Test for lock held
+	# Initialization and cleanup
 
-cscope -d -L -0 rt_mutex_is_locked
+	cscope -d -L -0 DEFINE_RAW_SPINLOCK
+	cscope -d -L -0 DEFINE_SPINLOCK
+	cscope -d -L -0 raw_spin_lock_init
+	cscope -d -L -0 spin_lock_init
+	cscope -d -L -0 SPIN_LOCK_UNLOCKED
 
-## Exclusive semaphores
+	# Markers for exclusive critical sections
 
-# Initialization and cleanup
+	cscope -d -L -0 do_raw_spin_lock_flags
+	cscope -d -L -0 do_raw_spin_trylock
+	cscope -d -L -0 do_raw_spin_unlock
+	cscope -d -L -0 raw_spin_can_lock
+	cscope -d -L -0 raw_spin_lock
+	cscope -d -L -0 raw_spin_lock_bh
+	cscope -d -L -0 raw_spin_lock_irq
+	cscope -d -L -0 raw_spin_lock_irqsave
+	cscope -d -L -0 raw_spin_lock_irqsave_nested
+	cscope -d -L -0 raw_spin_lock_nested
+	cscope -d -L -0 raw_spin_lock_nest_lock
+	cscope -d -L -0 raw_spin_trylock
+	cscope -d -L -0 raw_spin_trylock_bh
+	cscope -d -L -0 raw_spin_trylock_irq
+	cscope -d -L -0 raw_spin_trylock_irqsave
+	cscope -d -L -0 raw_spin_unlock
+	cscope -d -L -0 raw_spin_unlock_bh
+	cscope -d -L -0 raw_spin_unlock_irq
+	cscope -d -L -0 raw_spin_unlock_irqrestore
+	cscope -d -L -0 raw_spin_unlock_wait
+	cscope -d -L -6 "guard\(raw_spinlock,"
+	cscope -d -L -6 "scoped_guard\(raw_spinlock,"
 
-cscope -d -L -0 DEFINE_SEMAPHORE
-cscope -d -L -0 init_sema
-cscope -d -L -0 initsema
-cscope -d -L -0 initnsema
-cscope -d -L -0 sema_init
+	cscope -d -L -0 atomic_dec_and_lock
+	cscope -d -L -0 atomic_dec_and_lock_irqsave
+	cscope -d -L -0 spin_lock
+	cscope -d -L -0 spin_lock_bh
+	cscope -d -L -0 spin_lock_irq
+	cscope -d -L -0 spin_lock_irqsave
+	cscope -d -L -0 raw_spin_lock_irqsave_nested
+	cscope -d -L -0 spin_lock_mutex
+	cscope -d -L -0 spin_lock_nested
+	cscope -d -L -0 spin_lock_nest_lock
+	cscope -d -L -0 spin_trylock
+	cscope -d -L -0 spin_trylock_bh
+	cscope -d -L -0 spin_trylock_irq
+	cscope -d -L -0 spin_trylock_irqsave
+	cscope -d -L -0 spin_unlock
+	cscope -d -L -0 spin_unlock_bh
+	cscope -d -L -0 spin_unlock_irq
+	cscope -d -L -0 spin_unlock_irqrestore
+	cscope -d -L -0 spin_unlock_mutex
+	cscope -d -L -0 spin_unlock_wait
+	cscope -d -L -6 "guard\(spinlock,"
+	cscope -d -L -6 "scoped_guard\(spinlock,"
 
-# Markers for exclusive critical sections
+	# Markers for lock held
 
-cscope -d -L -0 down
-cscope -d -L -0 down_interruptible
-cscope -d -L -0 down_killable
-cscope -d -L -0 down_timeout
-cscope -d -L -0 down_trylock
-cscope -d -L -0 up
+	cscope -d -L -0 assert_spin_locked
+	cscope -d -L -0 assert_raw_spin_locked
+	cscope -d -L -0 raw_spin_is_contended
+	cscope -d -L -0 raw_spin_is_locked
+	cscope -d -L -0 spin_can_lock
+	cscope -d -L -0 spin_is_contended
+	cscope -d -L -0 spin_is_locked
+	cscope -d -L -0 spin_needbreak
 
-# XFS mappings (probably others as well, but...)
+	## Bit spinlocks
 
-cscope -d -L -0 psema
-cscope -d -L -0 cpsema
-cscope -d -L -0 vsema
-cscope -d -L -0 valusema
-cscope -d -L -0 freesema
+	# Critical sections
 
-## Exclusive spinlocks
+	cscope -d -L -0 bit_spin_lock
+	cscope -d -L -0 bit_spin_trylock
+	cscope -d -L -0 bit_spin_unlock
+	cscope -d -L -0 __bit_spin_unlock
+	cscope -d -L -0 bit_spin_is_locked
 
-# Initialization and cleanup
+	## Local locks
 
-cscope -d -L -0 DEFINE_RAW_SPINLOCK
-cscope -d -L -0 DEFINE_SPINLOCK
-cscope -d -L -0 raw_spin_lock_init
-cscope -d -L -0 spin_lock_init
-cscope -d -L -0 SPIN_LOCK_UNLOCKED
+	# Initialization and cleanup
+	cscope -d -L -0 local_lock_init
 
-# Markers for exclusive critical sections
+	# Markers for critical sections
+	cscope -d -L -0 local_lock
+	cscope -d -L -0 local_lock_irq
+	cscope -d -L -0 local_lock_irqsave
+	cscope -d -L -0 local_lock_nested_bh
+	cscope -d -L -0 local_unlock
+	cscope -d -L -0 local_unlock_irq
+	cscope -d -L -0 local_unlock_irqrestore
+	cscope -d -L -0 local_unlock_nested_bh
+	cscope -d -L -6 "guard\(local_lock"
 
-cscope -d -L -0 do_raw_spin_lock_flags
-cscope -d -L -0 do_raw_spin_trylock
-cscope -d -L -0 do_raw_spin_unlock
-cscope -d -L -0 raw_spin_can_lock
-cscope -d -L -0 raw_spin_lock
-cscope -d -L -0 raw_spin_lock_bh
-cscope -d -L -0 raw_spin_lock_irq
-cscope -d -L -0 raw_spin_lock_irqsave
-cscope -d -L -0 raw_spin_lock_irqsave_nested
-cscope -d -L -0 raw_spin_lock_nested
-cscope -d -L -0 raw_spin_lock_nest_lock
-cscope -d -L -0 raw_spin_trylock
-cscope -d -L -0 raw_spin_trylock_bh
-cscope -d -L -0 raw_spin_trylock_irq
-cscope -d -L -0 raw_spin_trylock_irqsave
-cscope -d -L -0 raw_spin_unlock
-cscope -d -L -0 raw_spin_unlock_bh
-cscope -d -L -0 raw_spin_unlock_irq
-cscope -d -L -0 raw_spin_unlock_irqrestore
-cscope -d -L -0 raw_spin_unlock_wait
+	## lglocks
 
-cscope -d -L -0 atomic_dec_and_lock
-cscope -d -L -0 spin_lock
-cscope -d -L -0 spin_lock_bh
-cscope -d -L -0 spin_lock_irq
-cscope -d -L -0 spin_lock_irqsave
-cscope -d -L -0 raw_spin_lock_irqsave_nested
-cscope -d -L -0 spin_lock_mutex
-cscope -d -L -0 spin_lock_nested
-cscope -d -L -0 spin_lock_nest_lock
-cscope -d -L -0 spin_trylock
-cscope -d -L -0 spin_trylock_bh
-cscope -d -L -0 spin_trylock_irq
-cscope -d -L -0 spin_trylock_irqsave
-cscope -d -L -0 spin_unlock
-cscope -d -L -0 spin_unlock_bh
-cscope -d -L -0 spin_unlock_irq
-cscope -d -L -0 spin_unlock_irqrestore
-cscope -d -L -0 spin_unlock_mutex
-cscope -d -L -0 spin_unlock_wait
+	cscope -d -L -0 DEFINE_LGLOCK
+	cscope -d -L -0 DECLARE_LGLOCK
+	cscope -d -L -0 lg_lock_init
+	cscope -d -L -0 lg_lock_init
+	cscope -d -L -0 lg_local_lock
+	cscope -d -L -0 lg_local_unlock
+	cscope -d -L -0 lg_local_lock_cpu
+	cscope -d -L -0 lg_local_unlock_cpu
+	cscope -d -L -0 lg_global_lock
+	cscope -d -L -0 lg_global_unlock
+	cscope -d -L -0 lg_global_lock_online
+	cscope -d -L -0 lg_global_unlock_online
 
-# Markers for lock held
+	cscope -d -L -0 DECLARE_BRLOCK
+	cscope -d -L -0 DEFINE_BRLOCK
+	cscope -d -L -0 br_lock_init
+	cscope -d -L -0 br_read_lock
+	cscope -d -L -0 br_read_unlock
+	cscope -d -L -0 br_write_lock
+	cscope -d -L -0 br_write_unlock
 
-cscope -d -L -0 assert_spin_locked
-cscope -d -L -0 raw_spin_is_contended
-cscope -d -L -0 raw_spin_is_locked
-cscope -d -L -0 spin_can_lock
-cscope -d -L -0 spin_is_contended
-cscope -d -L -0 spin_is_locked
+	## seqlocks -- include the locked write side, but not the read side
+	#		because the read side is not a lock.
 
-## lglocks
+	cscope -d -L -0 DEFINE_SEQLOCK
+	cscope -d -L -0 seqlock_init
 
-cscope -d -L -0 DEFINE_LGLOCK
-cscope -d -L -0 DECLARE_LGLOCK
-cscope -d -L -0 lg_lock_init
-cscope -d -L -0 lg_lock_init
-cscope -d -L -0 lg_local_lock
-cscope -d -L -0 lg_local_unlock
-cscope -d -L -0 lg_local_lock_cpu
-cscope -d -L -0 lg_local_unlock_cpu
-cscope -d -L -0 lg_global_lock
-cscope -d -L -0 lg_global_unlock
-cscope -d -L -0 lg_global_lock_online
-cscope -d -L -0 lg_global_unlock_online
+	cscope -d -L -0 read_seqlock_excl
+	cscope -d -L -0 read_seqlock_excl_bh
+	cscope -d -L -0 read_seqlock_excl_irq
+	cscope -d -L -0 read_seqlock_excl_irqsave
+	cscope -d -L -0 read_sequnlock_excl
+	cscope -d -L -0 read_sequnlock_excl_bh
+	cscope -d -L -0 read_sequnlock_excl_irq
+	cscope -d -L -0 read_sequnlock_excl_irqrestore
 
-cscope -d -L -0 DECLARE_BRLOCK
-cscope -d -L -0 DEFINE_BRLOCK
-cscope -d -L -0 br_lock_init
-cscope -d -L -0 br_read_lock
-cscope -d -L -0 br_read_unlock
-cscope -d -L -0 br_write_lock
-cscope -d -L -0 br_write_unlock
+	cscope -d -L -0 read_seqbegin_or_lock
+	cscope -d -L -0 read_seqbegin_or_lock_irqsave
+	cscope -d -L -0 done_seqretry
+	cscope -d -L -0 done_seqretry_irqrestore
 
-## seqlocks -- include the locked write side, but not the read side
-#		because the read side is not a lock.
+	cscope -d -L -0 write_seqlock
+	cscope -d -L -0 write_seqlock_irqsave
+	cscope -d -L -0 write_seqlock_irq
+	cscope -d -L -0 write_seqlock_bh
+	cscope -d -L -0 write_tryseqlock
+	cscope -d -L -0 write_sequnlock
+	cscope -d -L -0 write_sequnlock_irqrestore
+	cscope -d -L -0 write_sequnlock_irq
+	cscope -d -L -0 write_sequnlock_bh
 
-cscope -d -L -0 DEFINE_SEQLOCK
-cscope -d -L -0 write_seqlock
-cscope -d -L -0 write_seqlock_irqsave
-cscope -d -L -0 write_seqlock_irq
-cscope -d -L -0 write_seqlock_bh
-cscope -d -L -0 write_tryseqlock
-cscope -d -L -0 write_sequnlock
-cscope -d -L -0 write_sequnlock_irqrestore
-cscope -d -L -0 write_sequnlock_irq
-cscope -d -L -0 write_sequnlock_bh
+) | grep -v '^include/linux/spinlock.*\.h' | \
+    grep -v '^include/linux/semaphore\.h' | \
+    grep -v '^include/linux/sem\.h' | \
+    grep -v '^include/linux/sem_types\.h' | \
+    grep -v '^include/linux/bit_spinlock\.h' | \
+    grep -v '^include/linux/debug_locks\.h' | \
+    grep -v '^include/linux/local_lock\.h' | \
+    grep -v '^include/linux/seqlock.*\.h' | \
+    grep -v '^include/linux/.*rwlock.*\.h' | \
+    grep -v '^include/linux/.*rwlock\.h' | \
+    grep -v '^include/linux/percpu-rwsem\.h' | \
+    grep -v '^kernel/locking/' | \
+    grep -v "File does not have expected format" | \
+    grep -v "^$" | \
+    sort --key=1,1 --key=3n
