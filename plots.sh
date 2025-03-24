@@ -57,7 +57,7 @@ set ylabel "# RCU/locking API Uses"
 set style data lines
 set yrange [0:]
 set nokey
-set label 1 "locking" at 2022,130000 r
+set label 1 "locking" at 2022,122000 r
 set label 2 "RCU" at 2022,27000 r
 # set label 3 "Locking" at 2003.5,17000 l
 plot "rcu.dat", "lock.dat"
