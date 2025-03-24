@@ -108,3 +108,25 @@ set term png medium
 set output "linux-RCUlockpct.png"
 replot
 ---EOF---
+
+gnuplot << ---EOF---
+set term postscript portrait ${fontsize}
+set size square ${plotsize},${plotsize}
+set output "linux-RCUrwlock.eps"
+set xlabel "\nYear"
+set xtics rotate
+set ylabel "RCU Uses vs. Reader-Writer Locking"
+set style data lines
+# set yrange [1:]
+# set logscale y
+set nokey
+set label 1 "Reader-Writer" at 2025,5400 r
+set label 2 "Locking" at 2025,2900 r
+set label 3 "RCU" at 2022,20000 r
+# set label 3 "Locking" at 2005,25000 l
+plot "rcu.dat", "rwlock.dat"
+set size 1,1
+set term png medium
+set output "linux-RCUrwlock.png"
+replot
+---EOF---
