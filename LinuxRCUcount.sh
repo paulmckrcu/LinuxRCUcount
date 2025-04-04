@@ -75,22 +75,38 @@ find $DIRS \( -name SCCS -prune \) -o \( -name .git -prune \) -o \( -name '*.[hc
 	cscope -bkq -i -
 
 # Analyze cscope data and squirrel away the results.
-sh ${destdir}/RCUanalysis.sh > $T/F/${directory}.rcua
+sh ${destdir}/RCUanalysis.sh ${destdir} > $T/F/${directory}.rcua
 wc -l < $T/F/${directory}.rcua > $T/F/${directory}.wc
 sh ${destdir}/summarizecscope.sh < $T/F/${directory}.rcua > $T/F/${directory}.sum
+sh ${destdir}/SRCUanalysis.sh ${destdir} | wc -l > $T/F/${directory}.srcuwc
+sh ${destdir}/Non-SRCUanalysis.sh ${destdir} | wc -l > $T/F/${directory}.nonsrcuwc
 sh ${destdir}/LockAnalysis.sh ${destdir} | wc -l > $T/F/${directory}.lockwc
 sh ${destdir}/RWlockAnalysis.sh ${destdir} | wc -l > $T/F/${directory}.rwlockwc
+sh ${destdir}/RWspinlockAnalysis.sh ${destdir} | wc -l > $T/F/${directory}.rwspinlockwc
+sh ${destdir}/RWsleeplockAnalysis.sh ${destdir} | wc -l > $T/F/${directory}.rwsleeplockwc
 cd ${destdir}
 mkdir $outdir || :
 cp $T/F/* $outdir
-touch $outdir/rcu.dat $outdir/lock.dat $outdir/rwlock.dat $outdir/rculock.tab
+(
+	cd ${outdir}
+	touch rcu.dat srcu.dat nonsrcu.dat lock.dat rwlock.dat rwspinlock.dat rwsleeplock.dat
+)
 datefrac="`sh ${destdir}/date2frac.sh $date`"
+
 rcucnt="`cat $outdir/${directory}.wc`"
-lockcnt="`cat $outdir/${directory}.lockwc`"
-rwlockcnt="`cat $outdir/${directory}.rwlockwc`"
 echo $datefrac $rcucnt >> $outdir/rcu.dat
+srcucnt="`cat $outdir/${directory}.srcuwc`"
+echo $datefrac $srcucnt >> $outdir/srcu.dat
+nonsrcucnt="`cat $outdir/${directory}.nonsrcuwc`"
+echo $datefrac $nonsrcucnt >> $outdir/nonsrcu.dat
+lockcnt="`cat $outdir/${directory}.lockwc`"
 echo $datefrac $lockcnt >> $outdir/lock.dat
+rwlockcnt="`cat $outdir/${directory}.rwlockwc`"
 echo $datefrac $rwlockcnt >> $outdir/rwlock.dat
+rwspinlockcnt="`cat $outdir/${directory}.rwspinlockwc`"
+echo $datefrac $rwspinlockcnt >> $outdir/rwspinlock.dat
+rwsleeplockcnt="`cat $outdir/${directory}.rwsleeplockwc`"
+echo $datefrac $rwsleeplockcnt >> $outdir/rwsleeplock.dat
 echo "<TR><TD>$date</TD>" >> $outdir/rculock.tab
 echo "    <TD>$rcucnt</TD><TD>$lockcnt</TD>" >> $outdir/rculock.tab
 echo "    <TD><A HREF=\"${directory}.sum\">${directory}.sum</A></TD>" >> $outdir/rculock.tab
