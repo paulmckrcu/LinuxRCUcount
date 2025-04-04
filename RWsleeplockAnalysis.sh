@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# A script of csscope queries to gather data on reader-writer semaphores.
+# A script of cscope queries to gather data on reader-writer semaphores.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,26 +20,15 @@
 #
 # Authors: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
 
+destdir=${1-.}
+
 (
-
-	# Initialization and cleanup
-
-	cscope -d -L -0 DECLARE_RWSEM
-
-	# Markers for reader-writer critical sections
-
-	cscope -d -L -0 down_read
-	cscope -d -L -0 down_read_trylock
-	cscope -d -L -0 down_write
-	cscope -d -L -0 down_write_trylock
-	cscope -d -L -0 up_read
-	cscope -d -L -0 up_write
-	cscope -d -L -0 downgrade_write
-
-	# test for lock held
-
-	cscope -d -L -0 rwsem_is_locked
-
-) | grep -v "File does not have expected format" | \
-    grep -v "^$" | \
-    sort --key=1,1 --key=3n
+	sh ${destdir}/RWlockSleepCommon.sh
+) | \
+	grep -v '^include/linux/.*rwlock.*\.h' | \
+	grep -v '^include/linux/rwsem\.h' | \
+	grep -v '^include/linux/percpu-rwsem\.h' | \
+	grep -v '^kernel/locking/' | \
+	grep -v "File does not have expected format" | \
+	grep -v "^$" | \
+	sort --key=1,1 --key=3n
