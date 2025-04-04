@@ -16,11 +16,18 @@
 # along with this program; if not, you can access it online at
 # http://www.gnu.org/licenses/gpl-2.0.html.
 #
-# Copyright (C) IBM Corporation, 2009
+# Copyright (C) IBM Corporation, 2009-2019
+# Copyright (C) Meta Platforms, Inc., 2019-
 #
-# Authors: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
+# Authors: Paul E. McKenney <paulmck@kernel.org>
+
+destdir=${1-.}
 
 (
+
+	# SRCU
+
+	sh ${destdir}/SRCUcommon.sh
 
 	# Markers
 
@@ -28,8 +35,6 @@
 
 	# Initialization and cleanup
 
-	cscope -d -L -0 init_srcu_struct
-	cscope -d -L -0 cleanup_srcu_struct
 	cscope -d -L -0 RCU_HEAD_INIT # DEAD
 	cscope -d -L -0 rcu_head_init
 	cscope -d -L -0 RCU_INIT_POINTER
@@ -42,8 +47,6 @@
 	cscope -d -L -0 destroy_rcu_head_on_stack
 	cscope -d -L -0 SLAB_DESTROY_BY_RCU # Dead!!!
 	cscope -d -L -0 SLAB_TYPESAFE_BY_RCU
-	cscope -d -L -0 DEFINE_SRCU
-	cscope -d -L -0 DEFINE_STATIC_SRCU
 
 	# Markers for RCU read-side critical sections
 
@@ -58,23 +61,6 @@
 	cscope -d -L -0 rcu_read_lock_trace
 	cscope -d -L -0 rcu_read_unlock_trace
 	cscope -d -L -6 "guard\(rcu\)\(\)"
-	cscope -d -L -0 srcu_read_lock
-	cscope -d -L -0 srcu_read_lock_fast
-	cscope -d -L -0 srcu_read_lock_nmisafe
-	cscope -d -L -0 srcu_read_lock_raw # Dead!!!
-	cscope -d -L -0 srcu_read_lock_notrace
-	cscope -d -L -0 srcu_read_unlock
-	cscope -d -L -0 srcu_read_unlock_fast
-	cscope -d -L -0 srcu_read_unlock_nmisafe
-	cscope -d -L -0 srcu_read_unlock_raw # Dead!!!
-	cscope -d -L -0 srcu_read_unlock_notrace
-	cscope -d -L -0 srcu_down_read
-	cscope -d -L -0 srcu_down_read_fast
-	cscope -d -L -0 srcu_up_read
-	cscope -d -L -0 srcu_up_read_fast
-	cscope -d -L -0 smp_mb__after_srcu_read_unlock
-	cscope -d -L -6 "guard\(srcu\)\("
-	cscope -d -L -6 "scoped_guard\(srcu,"
 	cscope -d -L -0 RCU_NONIDLE # Dead!!!
 
 	# RCU lockdep assertion
@@ -87,7 +73,6 @@
 	cscope -d -L -0 rcu_read_lock_trace_held
 	cscope -d -L -0 rcu_read_lock_any_held
 	cscope -d -L -0 rcu_sleep_check
-	cscope -d -L -0 srcu_read_lock_held
 
 	# RCU pointer/list traversal
 
@@ -106,9 +91,6 @@
 	cscope -d -L -0 rcu_dereference_sched
 	cscope -d -L -0 rcu_dereference_sched_check
 	cscope -d -L -0 rcu_dereference_sched_protected # Dead!!!
-	cscope -d -L -0 srcu_dereference
-	cscope -d -L -0 srcu_dereference_check
-	cscope -d -L -0 srcu_dereference_notrace
 	cscope -d -L -0 rcu_pointer_handoff
 
 	cscope -d -L -0 list_entry_lockless
@@ -125,7 +107,6 @@
 	cscope -d -L -0 list_for_each_entry_continue_rcu
 	cscope -d -L -0 list_for_each_entry_from_rcu
 	cscope -d -L -0 list_for_each_entry_lockless
-	cscope -d -L -0 list_for_each_entry_srcu
 	cscope -d -L -0 hlist_first_rcu
 	cscope -d -L -0 hlist_next_rcu
 	cscope -d -L -0 hlist_pprev_rcu
@@ -136,7 +117,6 @@
 	cscope -d -L -0 hlist_for_each_entry_continue_rcu
 	cscope -d -L -0 hlist_for_each_entry_continue_rcu_bh
 	cscope -d -L -0 hlist_for_each_entry_from_rcu
-	cscope -d -L -0 hlist_for_each_entry_srcu
 
 	cscope -d -L -0 hlist_nulls_first_rcu
 	cscope -d -L -0 hlist_nulls_next_rcu
@@ -193,14 +173,12 @@
 	cscope -d -L -0 call_rcu_tasks
 	cscope -d -L -0 call_rcu_tasks_rude
 	cscope -d -L -0 call_rcu_tasks_trace
-	cscope -d -L -0 call_srcu
 	cscope -d -L -0 rcu_barrier
 	cscope -d -L -0 rcu_barrier_bh # Dead!!!
 	cscope -d -L -0 rcu_barrier_sched # Dead!!!
 	cscope -d -L -0 rcu_barrier_tasks
 	cscope -d -L -0 rcu_barrier_tasks_rude
 	cscope -d -L -0 rcu_barrier_tasks_trace
-	cscope -d -L -0 srcu_barrier
 	cscope -d -L -0 synchronize_kernel # Dead!!!
 	cscope -d -L -0 synchronize_net
 	cscope -d -L -0 synchronize_rcu
@@ -213,8 +191,6 @@
 	cscope -d -L -0 rcu_trace_implies_rcu_gp
 	cscope -d -L -0 synchronize_sched # Dead!!!
 	cscope -d -L -0 synchronize_sched_expedited # Dead!!!
-	cscope -d -L -0 synchronize_srcu
-	cscope -d -L -0 synchronize_srcu_expedited
 	cscope -d -L -0 synchronize_rcu_mult
 
 	# RCU polled grace period
@@ -227,7 +203,6 @@
 	cscope -d -L -0 get_completed_synchronize_rcu_full
 	cscope -d -L -0 get_state_synchronize_rcu
 	cscope -d -L -0 get_state_synchronize_rcu_full
-	cscope -d -L -0 get_state_synchronize_srcu
 	cscope -d -L -0 poll_state_synchronize_rcu
 	cscope -d -L -0 poll_state_synchronize_rcu_full
 	cscope -d -L -0 same_state_synchronize_rcu
@@ -236,9 +211,6 @@
 	cscope -d -L -0 start_poll_synchronize_rcu_full
 	cscope -d -L -0 start_poll_synchronize_rcu_expedited
 	cscope -d -L -0 start_poll_synchronize_rcu_expedited_full
-	cscope -d -L -0 start_poll_synchronize_srcu
-	cscope -d -L -0 start_poll_synchronize_srcu_expedited
-	cscope -d -L -0 poll_state_synchronize_srcu
 
 	# RCU grace-period/quiescent-state control
 
