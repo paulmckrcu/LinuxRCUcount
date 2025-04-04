@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# Downloads the specified Linux-kernel source-tree tarball, unpacks it,
-# builds a cscope database against it, and invokes the LockAnalysis.sh,
-# RWlockAnalysis.sh, and RCUanalysis.sh scripts to collect the respective
-# data.  It then appends this data to the .dat files and the rculock.tab
-# file, and then regenerates the plots and the rculocktab.html file.
+# Clones the specified Linux-kernel source-tree version, builds a cscope
+# database against it, and invokes the LockAnalysis.sh, RWlockAnalysis.sh,
+# and RCUanalysis.sh scripts to collect the respective data.  It then
+# appends this data to the .dat files, the rculock.tab file, and the
+# rculocktab.html file.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,9 +20,10 @@
 # along with this program; if not, you can access it online at
 # http://www.gnu.org/licenses/gpl-2.0.html.
 #
-# Copyright (C) IBM Corporation, 2009
+# Copyright (C) IBM Corporation, 2009-2019
+# Copyright (C) Meta Platforms, Inc., 2019-
 #
-# Authors: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
+# Authors: Paul E. McKenney <paulmck@kernel.org>
 
 destdir=`pwd`
 T=/tmp/LinuxRCUcount.sh.$$
@@ -30,51 +31,50 @@ trap 'rm -rf ${T}' 0
 mkdir $T
 cd $T
 mkdir F
+current=/home/git/linux/.git
+historical=/home/git/tglx-history/.git
 
 version=$1
 outdir=${2-results}
-majorversion=`echo ${version} | sed -e 's/\(...\).*$/\1/'`
-case "$majorversion" in
-	2.5) downloadversion=2.5;;
-	2.6) downloadversion=2.6;;
-	3.*) downloadversion=3.x;;
-	4.*) downloadversion=4.x;;
-	5.*) downloadversion=5.x;;
-	6.*) downloadversion=6.x;;
-	7.*) downloadversion=7.x;;
+case "$version" in
+	2.5*)
+		toclone=${historical}
+		;;
+	2.6.11|2.6.10|2.6.[0-9])
+		toclone=${historical}
+		;;
+	*)
+		toclone=${current}
+		;;
 esac
-directory=linux-$version
-archive=${directory}.tar.xz
-sign=${directory}.tar.sign
-signxz=${directory}.tar.xz.sign
+tag="v${version}"
 
-# Signature failure likely means that the attempted download failed.
-# Some versions of Linux only sign the .tar, others sign only the .tar.xz.
-# So try downloading and verifying both...
-while :
-do
-	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${archive}
-	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${signxz}
-	wget https://www.kernel.org/pub/linux/kernel/v${downloadversion}/${sign}
-	if test -f ${signxz} && gpg --verify ${signxz}
+# Clone selected archive.
+git clone --reference ${toclone} ${toclone} linux
+directory=linux-${version}
+
+# Attempt to check out the tag, update and retry if ${current}.
+cd linux
+if ! git checkout ${tag}
+then
+	( cd ${toclone} ; git remote update )
+	git remote add linus git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+	git remote update
+	echo Current directory now `pwd` vs. ${directory} # @@@
+	if ! git checkout ${tag}
 	then
-		break;
-	elif test -f ${sign} && xzcat ${archive} | gpg --verify $sign -
-	then
-		break;
-	else
-		echo Signature verification failed: ${sign}, ${signxz}
-		ls -l ${archive} ${sign} ${signxz}
-		rm ${archive} ${sign} ${signxz}
+		echo Error: tag ${tag} not found in ${current}.
+		exit 1
 	fi
-done
+fi
+date="`git log HEAD^..HEAD --date=format:'%d-%b-%Y' --format='%ad'`"
 
-tar -xJf ${archive}
-rm -f ${archive}
-cd ${directory}
+# Build cscope database
 DIRS="`ls -d */ | egrep -v '^(certs|Documentation|firmware|samples|scripts|tools|usr)/$'`"
 find $DIRS \( -name SCCS -prune \) -o \( -name .git -prune \) -o \( -name '*.[hcCS]' -print \) |
 	cscope -bkq -i -
+
+# Analyze cscope data and squirrel away the results.
 sh ${destdir}/RCUanalysis.sh > $T/F/${directory}.rcua
 wc -l < $T/F/${directory}.rcua > $T/F/${directory}.wc
 sh ${destdir}/summarizecscope.sh < $T/F/${directory}.rcua > $T/F/${directory}.sum
@@ -83,11 +83,7 @@ sh ${destdir}/RWlockAnalysis.sh ${destdir} | wc -l > $T/F/${directory}.rwlockwc
 cd ${destdir}
 mkdir $outdir || :
 cp $T/F/* $outdir
-wget http://kernel.org/pub/linux/kernel/v${downloadversion}/ -O - 2> /dev/null | \
-	grep '"'"${archive}"'"' | \
-	awk '{print $3}' > $outdir/${directory}.date
 touch $outdir/rcu.dat $outdir/lock.dat $outdir/rwlock.dat $outdir/rculock.tab
-date="`cat $outdir/${directory}.date`"
 datefrac="`sh ${destdir}/date2frac.sh $date`"
 rcucnt="`cat $outdir/${directory}.wc`"
 lockcnt="`cat $outdir/${directory}.lockwc`"
