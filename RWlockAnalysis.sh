@@ -22,7 +22,10 @@
 
 destdir=${1-.}
 
-sh ${destdir}/RWlockCommon.sh | \
+(
+	sh ${destdir}/RWlockSpinCommon.sh
+	sh ${destdir}/RWlockSleepCommon.sh
+) | \
 	grep -v '^include/linux/.*rwlock.*\.h' | \
 	grep -v '^include/linux/rwsem\.h' | \
 	grep -v '^include/linux/percpu-rwsem\.h' | \

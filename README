@@ -103,8 +103,17 @@ README
 
 RWlockAnalysis.sh
 
-	A script of cscope queries to gather data on reader-writer spinlocks.
-	(Not used except manually.)
+	A script of cscope queries to gather data on reader-writer locks.
+
+RWlockSleepCommon.sh
+
+	A script of unreduced cscope queries to gather data on
+	reader-writer sleeplocks.
+
+RWlockSpinCommon.sh
+
+	A script of unreduced cscope queries to gather data on
+	reader-writer spinlocks.
 
 RWsleeplockAnalysis.sh
 

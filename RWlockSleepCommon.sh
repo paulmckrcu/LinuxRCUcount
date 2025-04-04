@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# List of cscope queries to gather data on reader-writer spinlocks.
+# List of cscope queries to gather data on reader-writer sleeplocks.
 # Filtering is done by LockAnalysis.sh and RWlockAnalysis.sh, which
 # both call this script.
 #
@@ -20,41 +20,7 @@
 #
 # Copyright (C) IBM Corporation, 2009
 #
-# Authors: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
-
-## Reader-writer lock.
-
-# Initialization and cleanup
-
-cscope -d -L -0 DEFINE_RWLOCK
-cscope -d -L -0 RW_LOCK_UNLOCKED
-cscope -d -L -0 __RW_LOCK_UNLOCKED
-cscope -d -L -0 rwlock_init
-
-# Markers for reader-writer critical sections
-
-cscope -d -L -0 read_lock
-cscope -d -L -0 read_lock_bh
-cscope -d -L -0 read_lock_irq
-cscope -d -L -0 read_lock_irqsave
-cscope -d -L -0 read_trylock
-cscope -d -L -0 read_unlock
-cscope -d -L -0 read_unlock_bh
-cscope -d -L -0 read_unlock_irq
-cscope -d -L -0 read_unlock_irqrestore
-
-cscope -d -L -0 write_lock
-cscope -d -L -0 write_lock_bh
-cscope -d -L -0 write_lock_irq
-cscope -d -L -0 write_lock_irqsave
-cscope -d -L -0 write_trylock
-cscope -d -L -0 write_trylock_irqsave
-cscope -d -L -0 write_unlock
-cscope -d -L -0 write_unlock_bh
-cscope -d -L -0 write_unlock_irq
-cscope -d -L -0 write_unlock_irqrestore
-
-cscope -d -L -0 rwlock_is_contended
+# Authors: Paul E. McKenney <paulmckrcu@kernel.org>
 
 ## Reader-writer semaphore
 
