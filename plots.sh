@@ -112,6 +112,50 @@ replot
 gnuplot << ---EOF---
 set term postscript portrait ${fontsize}
 set size square ${plotsize},${plotsize}
+set output "linux-RCUrwspinlock.eps"
+set xlabel "\nYear"
+set xtics rotate
+set ylabel "RCU Uses vs. Reader-Writer Spinlocks"
+set style data lines
+# set yrange [1:]
+# set logscale y
+set nokey
+set label 1 "Reader-Writer" at 2025,5400 r
+set label 2 "Spinlocks" at 2025,2900 r
+set label 3 "RCU" at 2022,20000 r
+# set label 3 "Locking" at 2005,25000 l
+plot "rcu.dat", "rwspinlock.dat"
+set size 1,1
+set term png medium
+set output "linux-RCUrwspinlock.png"
+replot
+---EOF---
+
+gnuplot << ---EOF---
+set term postscript portrait ${fontsize}
+set size square ${plotsize},${plotsize}
+set output "linux-non-SRCUrwspinlock.eps"
+set xlabel "\nYear"
+set xtics rotate
+set ylabel "RCU Uses vs. Reader-Writer Spinlocks"
+set style data lines
+# set yrange [1:]
+# set logscale y
+set nokey
+set label 1 "Reader-Writer" at 2025,5400 r
+set label 2 "Spinlocks" at 2025,2900 r
+set label 3 "All RCU" at 2022,20000 r
+set label 4 "Non-SRCU" at 2019,13000 l
+plot "rcu.dat", "nonsrcu.dat", "rwspinlock.dat"
+set size 1,1
+set term png medium
+set output "linux-non-SRCUrwspinlock.png"
+replot
+---EOF---
+
+gnuplot << ---EOF---
+set term postscript portrait ${fontsize}
+set size square ${plotsize},${plotsize}
 set output "linux-RCUrwlock.eps"
 set xlabel "\nYear"
 set xtics rotate
@@ -121,12 +165,47 @@ set style data lines
 # set logscale y
 set nokey
 set label 1 "Reader-Writer" at 2025,5400 r
-set label 2 "Locking" at 2025,2900 r
-set label 3 "RCU" at 2022,20000 r
-# set label 3 "Locking" at 2005,25000 l
-plot "rcu.dat", "rwlock.dat"
+set label 2 "Spinlocks" at 2025,2900 r
+set label 3 "Reader-Writer" at 2029,11000 r
+set label 4 "Locking" at 2029,8500 r
+set label 5 "RCU" at 2022,20000 r
+set label 6 "Non-SRCU" at 2021,16000 l
+plot "rcu.dat", "nonsrcu.dat", "rwspinlock.dat", "rwlock.dat"
 set size 1,1
 set term png medium
 set output "linux-RCUrwlock.png"
+replot
+---EOF---
+
+gnuplot << ---EOF---
+set term postscript portrait ${fontsize}
+set size square ${plotsize},${plotsize}
+set output "linux-SRCUrwsleeplock.eps"
+set xlabel "\nYear"
+set xtics rotate
+set ylabel "RCU Uses vs. Reader-Writer Locking"
+set style data lines
+# set yrange [1:]
+# set logscale y
+set nokey
+set label 1 "Reader-Writer Sleeplocks" at 2023,5450 r
+set label 2 "SRCU" at 2024,1100 r
+# set label 6 "Non-SRCU" at 2021,16000 l
+plot "srcu.dat", "rwsleeplock.dat"
+set size 1,1
+set term png medium
+set output "linux-SRCUrwsleeplock.png"
+replot
+set term postscript portrait ${fontsize}
+set size square ${plotsize},${plotsize}
+set output "linux-SRCUrwsleeplocklog.eps"
+set logscale y
+set label 1 "Reader-Writer" at 2015,5400 r
+set label 2 "Sleeplocks" at 2016,2550 l
+set label 3 "SRCU" at 2009.5,70 r
+replot
+set size 1,1
+set term png medium
+set output "linux-SRCUrwsleeplocklog.png"
 replot
 ---EOF---
