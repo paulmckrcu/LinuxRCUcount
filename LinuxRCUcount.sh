@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Clones the specified Linux-kernel source-tree version, builds a cscope
+# Clones the specified Linux-kernel source-tree tag, builds a cscope
 # database against it, and invokes the LockAnalysis.sh, RWlockAnalysis.sh,
 # and RCUanalysis.sh scripts to collect the respective data.  It then
 # appends this data to the .dat files, the rculock.tab file, and the
@@ -31,25 +31,33 @@ trap 'rm -rf ${T}' 0
 mkdir $T
 cd $T
 mkdir F
+
+# git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git (v2.6.11-)
 current=/home/git/linux/.git
+
+# https://git.kernel.org/pub/scm/linux/kernel/git/tglx/history.git (v2.5-v2.6.10)
+# https://git.kernel.org/pub/scm/linux/kernel/git/history/history.git/ (-2.6.32)
+#	Note that pre-v2.5 tags lack the leading "v".
+#	And, often, dates, which could be extracted from kernel.org.
+#	And releases were at one-week intervals, so sampling!
 historical=/home/git/tglx-history/.git
 
-version=$1
+tag=$1
 outdir=${2-results}
-case "$version" in
-	2.5*)
+case "${tag}" in
+	[0-9]*|v2.5*)
 		toclone=${historical}
 		;;
-	2.6.11|2.6.10|2.6.[0-9])
+	v2.6.11|v2.6.10|v2.6.[0-9])
 		toclone=${historical}
 		;;
-	*)
+	v*)
 		toclone=${current}
 		;;
 esac
-tag="v${version}"
 
 # Clone selected archive.
+version="`echo ${tag} | sed -e 's/^v//'`"
 git clone --reference ${toclone} ${toclone} linux
 directory=linux-${version}
 
