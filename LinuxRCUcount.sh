@@ -75,7 +75,7 @@ then
 		exit 1
 	fi
 fi
-date="`git log HEAD^..HEAD --date=format:'%d-%b-%Y' --format='%ad'`"
+date="`git log HEAD^..HEAD --date=format:'%d-%b-%Y' --format='%ad' | head -1`"
 
 # Build cscope database
 DIRS="`ls -d */ | egrep -v '^(certs|Documentation|firmware|samples|scripts|tools|usr)/$'`"
