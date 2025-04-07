@@ -22,11 +22,13 @@
 #
 # Authors: Paul E. McKenney <paulmck@kernel.org>
 
+destdir="$2"
+
 T="`mktemp -d ${TMPDIR-/tmp}/version2date.sh.XXXXXX`"
 trap 'rm -rf $T' 0
 
 echo > $T/v2d.awk "BEGIN {"
-cat version2date.awk >> $T/v2d.awk
+cat ${destdir}/version2date.awk >> $T/v2d.awk
 cat >> $T/v2d.awk << "---EOF---"
 }
 
