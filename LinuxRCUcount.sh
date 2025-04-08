@@ -36,19 +36,22 @@ mkdir F
 current=/home/git/linux/.git
 
 # https://git.kernel.org/pub/scm/linux/kernel/git/tglx/history.git (v2.5-v2.6.10)
+historical=/home/git/tglx-history/.git
+
 # https://git.kernel.org/pub/scm/linux/kernel/git/history/history.git/ (-2.6.32)
 #	Note that pre-v2.5 tags lack the leading "v".
 #	And, often, dates, which could be extracted from kernel.org.
 #	And releases were at one-week intervals, so sampling!
-historical=/home/git/tglx-history/.git
+antique=/home/git/history-linux
 
 tag=$1
 outdir=${2-results}
 case "${tag}" in
-	[0-9]*|v2.5*)
-		toclone=${historical}
+	[0-9]*)
+		toclone=${antique}
+		date="`sh ${destdir}/version2date.sh "${tag}" "${destdir}"`"
 		;;
-	v2.6.11|v2.6.10|v2.6.[0-9])
+	v2.5*|v2.6.11|v2.6.10|v2.6.[0-9])
 		toclone=${historical}
 		;;
 	v*)
@@ -75,7 +78,10 @@ then
 		exit 1
 	fi
 fi
-date="`git log HEAD^..HEAD --date=format:'%d-%b-%Y' --format='%ad' | head -1`"
+if test -z "${date}"
+then
+	date="`git log HEAD^..HEAD --date=format:'%d-%b-%Y' --format='%ad' | head -1`"
+fi
 
 # Build cscope database
 DIRS="`ls -d */ | egrep -v '^(certs|Documentation|firmware|samples|scripts|tools|usr)/$'`"
