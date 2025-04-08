@@ -25,6 +25,14 @@
 
 destdir=${1-~/paper/RCU/intro/linuxusage}
 
+# Start at the year 2000.  Maybe later go back to 1996, the beginning
+# of time for the SMP Linux kernel.
+
+# sh LinuxRCUcount.sh 2.3.36 ${destdir}
+# sh LinuxRCUcount.sh 2.3.40 ${destdir}
+# sh LinuxRCUcount.sh 2.3.45 ${destdir}
+# sh LinuxRCUcount.sh 2.3.51 ${destdir}
+
 # sh LinuxRCUcount.sh v2.5.0 ${destdir}
 # sh LinuxRCUcount.sh v2.5.5 ${destdir}
 # sh LinuxRCUcount.sh v2.5.10 ${destdir}
