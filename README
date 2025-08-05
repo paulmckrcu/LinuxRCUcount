@@ -75,9 +75,10 @@ CollectDiffs.sh
 
 CollectRCUdata.sh
 
-	Collects data on a bunch of kernel versions, as called out
-	in the script.  Takes the directory in which to place the
-	data as its sole optional argument (defaulting to ~/linuxusage).
+	Collects data on a bunch of kernel versions, as called
+	out in the script.  Takes the directory in which to place
+	the data as its sole optional argument (defaulting to
+	~/paper/RCU/intro/linuxusage).
 
 LinuxRCUcount.sh
 
@@ -96,6 +97,32 @@ LockAnalysis.sh
 RCUanalysis.sh
 
 	A script of cscope queries to gather data on RCU.
+
+RCUbySubsystem.sh
+
+	A script that you run in the top-level directory of a Linux-kernel
+	source tree, giving it a .sum file as input.  It produces LaTeX
+	table entries showing RCU use and use per KLoC, for example,
+	as follows:
+
+		ipc & 97 & 9,911 &  9.79 \\
+		virt & 75 & 10,649 &  7.04 \\
+		net & 8,083 & 1,296,232 &  6.24 \\
+		security & 620 & 120,071 &  5.16 \\
+		kernel & 2,193 & 511,033 &  4.29 \\
+		rust & 3 & 1,069 &  2.81 \\
+		io_uring & 63 & 23,490 &  2.68 \\
+		mm & 473 & 205,614 &  2.30 \\
+		lib & 480 & 251,681 &  1.91 \\
+		block & 110 & 69,854 &  1.57 \\
+		init & 7 & 4,550 &  1.54 \\
+		fs & 1,921 & 1,668,078 &  1.15 \\
+		include & 1,037 & 1,352,768 &  0.77 \\
+		arch & 634 & 2,174,312 &  0.29 \\
+		drivers & 6,943 & 24,841,991 &  0.28 \\
+		crypto & 6 & 110,891 &  0.05 \\
+		sound & 21 & 1,584,416 &  0.01 \\
+		Total & 22,766 & 34,236,610 &  0.66 \\
 
 README
 
