@@ -191,4 +191,6 @@ destdir=${1-~/paper/RCU/intro/linuxusage}
 # sh LinuxRCUcount.sh v6.11 ${destdir}
 # sh LinuxRCUcount.sh v6.12 ${destdir}
 # sh LinuxRCUcount.sh v6.13 ${destdir}
-sh LinuxRCUcount.sh v6.14 ${destdir}
+# sh LinuxRCUcount.sh v6.14 ${destdir}
+# sh LinuxRCUcount.sh v6.15 ${destdir}
+sh LinuxRCUcount.sh v6.16 ${destdir}
