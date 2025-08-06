@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Issues cscope queries to gather data on RCU.
+# Issues cscope queries to gather data on RCU-bh.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
