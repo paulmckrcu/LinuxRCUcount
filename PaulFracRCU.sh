@@ -1,7 +1,9 @@
 #!/bin/bash
 #
-# Usage: PaulFracRCU.sh [ odir [ list of tags ] ]
-#	Run in a Linux-kernel git repo.
+# Usage: PaulFracRCU.sh [ odir base-commit [ list of tags ] ]
+#	Run in a Linux-kernel git repo.  Produces plots of the percentage
+#	of paulmck RCU commits per release and of the number of paulmck
+#	and non-paulmck commits per release.
 
 odir=$1
 if test $# -ne 0
